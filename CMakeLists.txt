@@ -1,20 +1,23 @@
 
-# for opengl or something
-set(CMAKE_POLICY_DEFAULT_CMP0072 NEW)
-
-
-set(CMAKE_CXX_STANDARD 14)
-
-cmake_minimum_required(VERSION 3.4.1)
 set(APP_NAME "MyApp")
 project(${APP_NAME})
 
+set(MZGL_ROOT "../koala/lib/mzgl")
+
+
+
+# for opengl or something
+set(CMAKE_POLICY_DEFAULT_CMP0072 NEW)
+set(CMAKE_CXX_STANDARD 14)
+
+cmake_minimum_required(VERSION 3.4.1)
+
 
 include_directories(src)
-set(${APP_NAME}_SOURCES src/main.cpp)
-add_subdirectory("../koala/lib/mzgl" "mzgl-build" )
+set(SOURCES src/main.cpp)
+add_subdirectory(${MZGL_ROOT} "mzgl-build" )
 add_compile_definitions(GL_SILENCE_DEPRECATION MZGL_GL2 MZGL_MAC_GLFW __MACOSX_CORE__)	
-add_executable(${APP_NAME} ${${APP_NAME}_SOURCES})
+add_executable(${APP_NAME} ${SOURCES})
 
 
 set_target_properties( ${APP_NAME}

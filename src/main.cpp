@@ -7,16 +7,16 @@ public:
 	MyApp(Graphics &g) : App(g) {}
 
 	void draw() {
-		g.clear(0.5, 1, 0);
+		g.clear(0, 0, 0);
 		g.setColor(1, 0, 0);
-		g.drawRect(100, 100, 100, 100);
+		g.drawRect(0, 0, g.width/2, g.height/2);
 	}
 };
 
 
 App *instantiateApp(Graphics &g) {
-	g.width = 828;
-	g.height = 1792;
+	g.width = 512;
+	g.height = 512;
 
 	App *app = new MyApp(g);
 
