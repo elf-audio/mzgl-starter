@@ -9,3 +9,12 @@ set(MZGL_ROOT "../koala/lib/mzgl")
 
 to point to the mzgl folder you created.
 
+
+to build: 
+
+```
+mkdir build
+cd build
+cmake ..
+cmake  --build . -j16
+```
