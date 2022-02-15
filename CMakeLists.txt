@@ -12,7 +12,12 @@ cmake_minimum_required(VERSION 3.4.1)
 
 include_directories(src)
 set(SOURCES src/main.cpp)
-add_executable(${APP_NAME} ${SOURCES})
+
+if(WIN32)
+    add_executable(${APP_NAME} WIN32 ${SOURCES})
+else()
+    add_executable(${APP_NAME} ${SOURCES})
+endif()
 
 add_subdirectory(${MZGL_ROOT} "mzgl-build" )
 
