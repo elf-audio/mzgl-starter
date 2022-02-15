@@ -7,9 +7,9 @@ public:
 	MyApp(Graphics &g) : App(g) {}
 
 	void draw() {
-		g.clear(0, 0, 0);
-		g.setColor(1, 0, 0);
-		g.drawRect(0, 0, g.width/2, g.height/2);
+		// g.clear(0, 0, 0);
+		g.setColor(randuf(), randuf(), randuf());
+		g.drawRect(randi(g.width/2), randi(g.height/2), g.width/2, g.height/2);
 	}
 };
 
