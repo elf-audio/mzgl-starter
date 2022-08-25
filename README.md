@@ -13,8 +13,7 @@ to point to the mzgl folder you created.
 to build: 
 
 ```
-mkdir build
-cd build
-cmake ..
-cmake  --build . -j16
+cmake -Bbuild -GNinja
+cmake --build build --config Release
+
 ```
