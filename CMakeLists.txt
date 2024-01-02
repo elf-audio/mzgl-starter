@@ -1,16 +1,15 @@
 
 set(APP_NAME "MyApp")
-project(${APP_NAME})
+
+cmake_minimum_required(VERSION 3.18)
+project(${APP_NAME} VERSION 1.0.0)
+
+set(CMAKE_CXX_STANDARD 17)
 
 set(MZGL_ROOT "../koala/lib/mzgl")
 
-# for opengl or something
-set(CMAKE_POLICY_DEFAULT_CMP0072 NEW)
-set(CMAKE_CXX_STANDARD 17)
-cmake_minimum_required(VERSION 3.4.1)
-
-
 include_directories(src)
+
 set(SOURCES src/main.cpp)
 
 if(WIN32)
