@@ -106,9 +106,8 @@ public:
 	}
 	void say(std::string s) {
 		std::thread([s, this]() {
-			auto synth = std::make_shared<FliteLite>();
+			auto synth = std::make_shared<FliteLite>(s);
 			synth->setLooping(true);
-			synth->createParams(s);
 			nextSynth = synth;
 		}).detach();
 	}
