@@ -73,28 +73,30 @@ public:
 };
 class MyApp : public App {
 public:
-	// BUGS:
-	// - if you instantiate FestivalSpeechSynth but don't use it there is a free of unallocated pointer
-	// - if you try to reuse the object by putting another sentence into it, this is also a problem.
-	std::shared_ptr<FliteLite> liveSynth;
-	std::shared_ptr<FliteLite> nextSynth;
-	std::shared_ptr<FliteLite> deadSynth;
+	
 
 	Slider *pitchSlider;
 	Slider *formantSlider;
 	Slider *speedSlider;
 	Toggle *reverseToggle;
+	
+	
+	
+	std::shared_ptr<FliteLite> liveSynth;
+	std::shared_ptr<FliteLite> nextSynth;
+	std::shared_ptr<FliteLite> deadSynth;
 	float pitch	  = 256;
 	float formant = 0;
 	float speed	  = 1;
-
 	bool reverse = false;
 	std::vector<double> mceps;
+	
+	
 	MyApp(Graphics &g)
 		: App(g) {
-		say("Cleo, a spark of dawn, a name like gold, a story begun, tiny hands clutch the world with wonder, her gaze a universe untold, laughter like bells, a heart so bold, a future bright, a legacy spun, in her smile, the sun’s warmth won");
-		FliteLite synth;
-		mceps.resize(synth.getNumMceps());
+			mceps.resize(FliteLite::getNumMceps());
+			say("Cleo, a spark of dawn, a name like gold, a story begun, tiny hands clutch the world with wonder, her gaze a universe untold, laughter like bells, a heart so bold, a future bright, a legacy spun, in her smile, the sun’s warmth won");
+			
 		pitchSlider	  = new Slider(g, "pitch", pitch, 20, 500);
 		formantSlider = new Slider(g, "formant", formant, -1, 1);
 		speedSlider	  = new Slider(g, "speed", speed, 0.1, 5);
@@ -126,28 +128,7 @@ public:
 		reverseToggle->positionUnder(speedSlider, 20);
 	}
 
-	std::vector<double> idct(const std::vector<double> &dct_coeffs) {
-		size_t N = dct_coeffs.size();
-		std::vector<double> output(N, 0.0);
-
-		// Precompute normalization factors
-		double c0 = std::sqrt(1.0 / N);
-		double cn = std::sqrt(2.0 / N);
-
-		// Compute IDCT
-		for (size_t n = 0; n < N; ++n) {
-			double sum = 0.0;
-
-			for (size_t k = 0; k < N; ++k) {
-				double coeff = (k == 0) ? c0 : cn;
-				sum += coeff * dct_coeffs[k] * std::cos(M_PI * k * (2 * n + 1) / (2.0 * N));
-			}
-
-			output[n] = sum;
-		}
-
-		return output;
-	}
+	
 
 	void draw() override {
 		if (deadSynth != nullptr) {
@@ -156,7 +137,7 @@ public:
 		g.clear(0, 0, 0);
 		g.setColor(0, 1, 0);
 
-		auto spec = idct(mceps);
+		auto spec = FliteLite::convertMcepsToSpectrum(mceps);
 
 		int sub = 4;
 		std::vector<float> sup(spec.size() / 4, 0);
@@ -224,7 +205,6 @@ public:
 
 		for (int i = 0; i < frames; i++) {
 			buff[i * 2] = buff[i * 2 + 1] = mono[i];
-
 			runningAve = 0.9995f * runningAve + 0.0005f * std::abs(mono[i]);
 		}
 	}
