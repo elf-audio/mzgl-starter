@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(MZGL_ROOT "../koala/lib/mzgl")
 
 include_directories(src)
-add_subdirectory(flitelite)
 set(SOURCES src/main.cpp)
 
 if (WIN32)
@@ -28,4 +27,4 @@ set_target_properties(${APP_NAME}
 )
 
 add_dependencies(${APP_NAME} libmzgl)
-target_link_libraries(${APP_NAME} libmzgl flitelite)
+target_link_libraries(${APP_NAME} libmzgl)
